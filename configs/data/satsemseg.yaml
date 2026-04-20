@@ -1,0 +1,29 @@
+_target_: src.data.satsemseg_datamodule.SatSemSegDataModule
+
+data_dir: ${paths.data_dir}satsemseg
+tiles:
+  - "Tile 1"
+  - "Tile 2"
+  - "Tile 3"
+  - "Tile 4"
+  - "Tile 5"
+  - "Tile 6"
+  - "Tile 7"
+  - "Tile 8"
+
+# list index == class id; RGB values match the colors present in the mask PNGs
+class_rgb:
+  - [226, 169, 41]   # 0: Water
+  - [132, 41, 246]   # 1: Land (unpaved area)
+  - [110, 193, 228]  # 2: Road
+  - [60, 16, 152]    # 3: Building
+  - [254, 221, 58]   # 4: Vegetation
+  - [155, 155, 155]  # 5: Unlabeled
+
+train_val_test_split: [0.7, 0.15, 0.15]
+image_size: 512
+batch_size: 8 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
+num_workers: 2
+pin_memory: True
+augment_train: True
+seed: 42
