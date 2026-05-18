@@ -42,8 +42,8 @@ _IMAGENET_STD = np.array([0.229, 0.224, 0.225], dtype=np.float32).reshape(1, 1, 
 
 
 def _denormalize_image(image: torch.Tensor) -> np.ndarray:
-    """Undo ImageNet normalization and return an HWC uint8 array."""
-    img = image.detach().cpu().numpy().transpose(1, 2, 0)
+    """Undo ImageNet normalization on the RGB channels and return an HWC uint8 array."""
+    img = image[:3].detach().cpu().numpy().transpose(1, 2, 0)
     img = img * _IMAGENET_STD + _IMAGENET_MEAN
     return np.clip(img * 255.0, 0, 255).astype(np.uint8)
 
