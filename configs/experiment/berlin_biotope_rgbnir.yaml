@@ -1,0 +1,46 @@
+# @package _global_
+
+# to execute this experiment run:
+# python src/train.py experiment=berlin_biotope_rgbnir
+
+defaults:
+  - override /data: berlin_biotope_rgbnir
+  - override /model: satsemseg
+  - override /callbacks: default
+  - override /trainer: default
+  - override /logger: aim
+
+tags: ["berlin_biotope", "unet_resnet34", "rgb_nir"]
+
+seed: 42
+
+trainer:
+  min_epochs: 10
+  max_epochs: 50
+  gradient_clip_val: 0.5
+
+model:
+  net:
+    in_channels: 4
+    num_classes: 13
+    pretrained: false  # pretrained weights require 3-channel input
+  num_classes: 13
+  optimizer:
+    lr: 0.0001
+
+data:
+  batch_size: 8
+  image_size: 512
+
+callbacks:
+  model_checkpoint:
+    monitor: "val/iou"
+    mode: "max"
+  early_stopping:
+    monitor: "val/iou"
+    mode: "max"
+    patience: 10
+
+logger:
+  aim:
+    experiment: "berlin_biotope_rgbnir"

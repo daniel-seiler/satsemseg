@@ -1,0 +1,4 @@
+defaults:
+  - berlin_biotope
+
+use_nir: true

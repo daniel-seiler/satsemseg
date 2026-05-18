@@ -1,0 +1,33 @@
+_target_: src.data.berlin_biotope_datamodule.BerlinBiotopeDataModule
+
+data_dir: ${paths.data_dir}geo
+use_nir: false
+use_height: false
+train_val_test_split: [0.7, 0.15, 0.15]
+image_size: 512
+batch_size: 8  # must be divisible by number of devices
+num_workers: 2
+pin_memory: true
+augment_train: true
+seed: 42
+rgb_mean: [0.485, 0.456, 0.406]
+rgb_std: [0.229, 0.224, 0.225]
+nir_mean: 0.5
+nir_std: 0.25
+height_mean: 5.0
+height_std: 8.0
+
+class_rgb:
+  - [30,  30,  30]   # 0:  NoData / außerhalb des Zielgebiets
+  - [31, 119, 180]   # 1:  Fließgewässer
+  - [174, 199, 232]  # 2:  Standgewässer
+  - [140,  86,  75]  # 3:  Anthropogene Rohbodenstandorte
+  - [23, 190, 207]   # 4:  Moore und Sümpfe
+  - [152, 223, 138]  # 5:  Grünland, Staudenfluren und Rasengesellschaften
+  - [148, 103, 189]  # 6:  Zwergstrauchheiden
+  - [44, 160,  44]   # 7:  Gebüsche, Baumreihen und Baumgruppen
+  - [0,  100,   0]   # 8:  Wälder und Forsten
+  - [255, 187,  90]  # 9:  Äcker
+  - [188, 237, 130]  # 10: Grün- und Freiflächen
+  - [255, 127,  14]  # 11: Sonderbiotope
+  - [127, 127, 127]  # 12: Bebaute Gebiete, Verkehrsanlagen und Sonderflächen
